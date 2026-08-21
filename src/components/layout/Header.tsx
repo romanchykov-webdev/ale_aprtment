@@ -45,7 +45,7 @@ interface HeaderProps {
     ui: UiCopy;
 }
 
-export function Header({ agent, property, nav, ui }: HeaderProps) {
+export function Header({ agent, nav, ui }: HeaderProps) {
     const { scrollY } = useScroll();
     const [hidden, setHidden] = useState(false);
     const lastY = useRef(0);
