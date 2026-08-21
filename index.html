@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500&family=Jost:wght@200;300;400;500&display=swap"
+    />
+
+    <title>Alessandro Imobilare</title>
+    <meta
+      name="description"
+      content="Прогулка по квартире в морском стиле: фасад дома, терраса, кухня-гостиная, спальня и санузел — кадры сменяются по мере прокрутки страницы."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Квартира в морском стиле — видеопрогулка" />
+    <meta
+      property="og:description"
+      content="Прогулка по квартире в морском стиле: фасад дома, терраса, кухня-гостиная, спальня и санузел."
+    />
+    <meta property="og:image" content="/frames/1280/0000.webp" />
+
+    <script>
+      // Picks the frame tier before the bundle loads, so the preload below can
+      // point at the file the app will actually request. src/lib/tier.ts reads
+      // this value back instead of deciding again.
+      (function () {
+        var tier = window.innerWidth <= 640 ? 720 : 1280;
+        window.__FRAME_TIER__ = tier;
+        var link = document.createElement('link');
+        link.rel = 'preload';
+        link.as = 'fetch';
+        link.crossOrigin = 'anonymous';
+        link.setAttribute('fetchpriority', 'high');
+        link.href = '/frames/' + tier + '/0000.webp';
+        document.head.appendChild(link);
+      })();
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
