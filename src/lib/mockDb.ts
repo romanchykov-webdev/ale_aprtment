@@ -277,11 +277,17 @@ const ROOMS: readonly Room[] = [
     },
 ];
 
+// const NAV: readonly NavItem[] = [
+//     { id: 'tour', label: 'Прогулка', href: '#tour', at: 0 },
+//     { id: 'exterior', label: 'Фасад', href: '#nav-exterior', at: 0.14 },
+//     { id: 'living', label: 'Гостиная', href: '#nav-living', at: 0.52 },
+//     { id: 'bedroom', label: 'Спальня', href: '#nav-bedroom', at: 0.94 },
+// ];
 const NAV: readonly NavItem[] = [
     { id: 'tour', label: 'Прогулка', href: '#tour', at: 0 },
-    { id: 'exterior', label: 'Фасад', href: '#nav-exterior', at: 0.14 },
-    { id: 'living', label: 'Гостиная', href: '#nav-living', at: 0.52 },
-    { id: 'bedroom', label: 'Спальня', href: '#nav-bedroom', at: 0.94 },
+    { id: 'exterior', label: 'Фасад', href: '#exterior', at: 0.14 },
+    { id: 'living', label: 'Гостиная', href: '#living', at: 0.35 },
+    { id: 'bedroom', label: 'Спальня', href: '#bedroom', at: 0.61 },
 ];
 
 const UI: UiCopy = {

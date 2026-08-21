@@ -81,6 +81,23 @@ export function Header({ agent, property, nav, ui }: HeaderProps) {
         setHidden(was => (was === shouldHide ? was : shouldHide));
     });
 
+    // плавный скролл к якорю
+    const handleSmoothScroll = (
+        e: React.MouseEvent<HTMLAnchorElement>,
+        targetId: string
+    ) => {
+        // 1. Убиваем стандартное поведение браузера (отменяем мгновенный прыжок)
+        e.preventDefault();
+
+        // 2. Ищем в DOM-дереве невидимый спан-якорь, который генерирует наш ScrollScrubber
+        const element = document.getElementById(targetId);
+
+        if (element) {
+            // 3. Заставляем браузер плавно прокрутить страницу до этого спана
+            element.scrollIntoView({ behavior: 'smooth' });
+        }
+    };
+
     return (
         <motion.header
             /* Затемнение сверху нужно всегда: на первом кадре под шапкой светлое
@@ -100,6 +117,7 @@ export function Header({ agent, property, nav, ui }: HeaderProps) {
             <div className="mx-auto flex max-w-352 items-center gap-6 px-[clamp(1rem,4vw,3rem)] py-4">
                 <a
                     href="#tour"
+                    onClick={e => handleSmoothScroll(e, 'tour')}
                     className="flex items-center gap-3 text-foam transition-colors hover:text-champagne"
                 >
                     <BrandMark className="size-6 shrink-0" />
@@ -117,6 +135,9 @@ export function Header({ agent, property, nav, ui }: HeaderProps) {
                             <li key={item.id}>
                                 <a
                                     href={item.href}
+                                    onClick={e =>
+                                        handleSmoothScroll(e, item.id)
+                                    }
                                     className="text-[10px] font-normal tracking-[0.28em] text-mist uppercase transition-colors hover:text-champagne"
                                 >
                                     {item.label}
