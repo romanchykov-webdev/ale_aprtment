@@ -4,9 +4,16 @@ import { ArrowRight } from 'lucide-react';
 
 interface ContactFormProps {
     className?: string;
+    /**
+     * Без собственной стеклянной оболочки и надзаголовка.
+     *
+     * Внутри модального окна рамку и заголовок даёт само окно: своя оболочка
+     * дала бы стекло в стекле, а надзаголовок — второй заголовок подряд.
+     */
+    bare?: boolean;
 }
 
-export function ContactForm({ className }: ContactFormProps) {
+export function ContactForm({ className, bare = false }: ContactFormProps) {
     // Базовые стили для инпутов, чтобы не дублировать код.
     // Используем focus-within для изменения цвета рамки при активном вводе.
     const inputBaseClasses = cn(
@@ -17,13 +24,16 @@ export function ContactForm({ className }: ContactFormProps) {
     return (
         <div
             className={cn(
-                'rounded-[2rem] border border-white/10 bg-white/5 p-8 backdrop-blur-xl md:p-12',
+                !bare &&
+                    'rounded-[2rem] border border-white/10 bg-white/5 p-8 backdrop-blur-xl md:p-12',
                 className
             )}
         >
-            <p className="mb-8 text-[10px] font-normal tracking-[0.3em] text-lagoon uppercase">
-                Оставить заявку
-            </p>
+            {!bare && (
+                <p className="mb-8 text-[10px] font-normal tracking-[0.3em] text-lagoon uppercase">
+                    Оставить заявку
+                </p>
+            )}
 
             {/* В будущем здесь будет <form onSubmit={...}> с react-hook-form */}
             <form
