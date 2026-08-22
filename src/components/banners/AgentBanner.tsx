@@ -1,6 +1,6 @@
+import { ViewingRequestDialog } from '@/components/forms/ViewingRequestDialog';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { BannerCloseButton } from '@/components/ui/banner-close-button';
-import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
 import { useBannerDismiss } from '@/lib/banner-dismiss';
@@ -38,10 +38,7 @@ export function AgentBanner({ agent, ui, className }: AgentBannerProps) {
       )}
     >
       {dismiss && (
-        <BannerCloseButton
-          onClose={dismiss.close}
-          label={`Закрыть карточку: ${fullName}`}
-        />
+        <BannerCloseButton onClose={dismiss.close} label={`Закрыть карточку: ${fullName}`} />
       )}
 
       <CardContent className="flex flex-col items-center gap-5 px-8">
@@ -77,14 +74,7 @@ export function AgentBanner({ agent, ui, className }: AgentBannerProps) {
           >
             <a href={phoneHref(agent)}>{ui.callLabel}</a>
           </Button> */}
-          <Button
-            asChild
-            variant="ghost"
-            className="h-auto border-2 border-ink-500 rounded-full px-7.5 py-3.75 text-[11px] font-normal tracking-[0.22em] text-mist uppercase hover:bg-transparent hover:text-champagne"
-          >
-            {/* <a href={`mailto:${agent.email}`}>{ui.emailLabel}</a> */}
-            <p> ЗАПИСАТЬСЯ НА ПРОСМОТР</p>
-          </Button>
+          <ViewingRequestDialog ui={ui} />
         </div>
       </CardContent>
     </Card>

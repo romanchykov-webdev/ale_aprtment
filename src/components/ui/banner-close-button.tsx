@@ -1,6 +1,7 @@
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import { X } from 'lucide-react';
+import type { ComponentProps } from 'react';
 
 /**
  * Крестик на матовой плашке.
@@ -8,19 +9,23 @@ import { X } from 'lucide-react';
  * Чисто презентационный компонент: контекста не читает, о FrameObserver не
  * знает. Решение «показывать ли крестик вообще» принимает баннер — он же
  * единственный знает, лежит ли он в закрываемом слое.
+ *
+ * Остальные пропсы кнопки проходят насквозь: это позволяет отдать тот же
+ * крестик под <DialogClose asChild>, где обработчик приходит от Radix. Один
+ * крестик на весь проект — одна точка правки внешнего вида.
  */
 
-interface BannerCloseButtonProps {
-    onClose: () => void;
+interface BannerCloseButtonProps extends ComponentProps<typeof Button> {
+    onClose?: () => void;
     /** Крестик без подписи — скринридеру нужен текст. */
     label?: string;
-    className?: string;
 }
 
 export function BannerCloseButton({
     onClose,
     label = 'Закрыть панель',
     className,
+    ...props
 }: BannerCloseButtonProps) {
     return (
         <Button
@@ -39,6 +44,9 @@ export function BannerCloseButton({
                 'focus-visible:ring-champagne/40',
                 className
             )}
+            // Идёт последним намеренно: под DialogClose asChild Radix передаёт
+            // сюда свой onClick, и он обязан перебить локальный onClose.
+            {...props}
         >
             <X className="size-4" aria-hidden="true" />
         </Button>

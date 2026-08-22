@@ -73,6 +73,14 @@ body {
     color: var(--color-foam);
 }
 
+/* Пока открыто модальное окно, прогулка обязана стоять на месте.
+   Radix вешает замок на body (data-scroll-locked), но скроллер страницы здесь —
+   html, и клавиатурный PageDown всё равно проматывал кадр под окном: колесо
+   мыши Radix перехватывает обработчиком, а клавиши — нет. */
+html:has(body[data-scroll-locked]) {
+    overflow: hidden;
+}
+
 #root {
     width: 100%;
 }
