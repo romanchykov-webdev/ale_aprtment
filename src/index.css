@@ -10,18 +10,18 @@
    Значения взяты из брендбука как есть. Менять их можно только вместе с
    утверждённым макетом, иначе скилл и реальные работы разойдутся. */
 @theme {
-    --color-ink: #0a0a0b;
-    --color-surface: #141416;
-    --color-foam: #f5f5f7;
-    --color-mist: #a5a5a5;
-    --color-champagne: #c9a96a;
-    --color-champagne-light: #d9be86;
-    --color-lagoon: #79c7d6;
+  --color-ink: #0a0a0b;
+  --color-surface: #141416;
+  --color-foam: #f5f5f7;
+  --color-mist: #d5d5d5;
+  --color-champagne: #c9a96a;
+  --color-champagne-light: #d9be86;
+  --color-lagoon: #79c7d6;
 
-    /* Радиусы: других значений в стиле нет. */
-    --radius-chip: 14px;
-    --radius-ribbon: 24px;
-    --radius-glass: 28px;
+  /* Радиусы: других значений в стиле нет. */
+  --radius-chip: 14px;
+  --radius-ribbon: 24px;
+  --radius-glass: 28px;
 }
 
 /* --- Затемнение поверх кадра ---
@@ -30,47 +30,47 @@
    Проверка простая — если панель убрать, кадр должен остаться узнаваемым, а не
    серым пятном. Альфы взяты из брендбука. */
 @utility scrim-left {
-    background: linear-gradient(
-        100deg,
-        rgb(10 10 11 / 0.86) 0%,
-        rgb(10 10 11 / 0.68) 25%,
-        rgb(10 10 11 / 0.36) 50%,
-        rgb(10 10 11 / 0.2) 75%,
-        rgb(10 10 11 / 0.45) 100%
-    );
+  background: linear-gradient(
+    100deg,
+    rgb(10 10 11 / 0.86) 0%,
+    rgb(10 10 11 / 0.68) 25%,
+    rgb(10 10 11 / 0.36) 50%,
+    rgb(10 10 11 / 0.2) 75%,
+    rgb(10 10 11 / 0.45) 100%
+  );
 }
 
 @utility scrim-right {
-    background: linear-gradient(
-        260deg,
-        rgb(10 10 11 / 0.83) 0%,
-        rgb(10 10 11 / 0.65) 25%,
-        rgb(10 10 11 / 0.35) 50%,
-        rgb(10 10 11 / 0.22) 75%,
-        rgb(10 10 11 / 0.48) 100%
-    );
+  background: linear-gradient(
+    260deg,
+    rgb(10 10 11 / 0.83) 0%,
+    rgb(10 10 11 / 0.65) 25%,
+    rgb(10 10 11 / 0.35) 50%,
+    rgb(10 10 11 / 0.22) 75%,
+    rgb(10 10 11 / 0.48) 100%
+  );
 }
 
 @utility scrim-bottom {
-    background: linear-gradient(
-        180deg,
-        rgb(10 10 11 / 0.59) 0%,
-        rgb(10 10 11 / 0.24) 33%,
-        rgb(10 10 11 / 0.26) 66%,
-        rgb(10 10 11 / 0.79) 100%
-    );
+  background: linear-gradient(
+    180deg,
+    rgb(10 10 11 / 0.59) 0%,
+    rgb(10 10 11 / 0.24) 33%,
+    rgb(10 10 11 / 0.26) 66%,
+    rgb(10 10 11 / 0.79) 100%
+  );
 }
 
 * {
-    box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 html,
 body {
-    margin: 0;
-    padding: 0;
-    background: var(--color-ink);
-    color: var(--color-foam);
+  margin: 0;
+  padding: 0;
+  background: var(--color-ink);
+  color: var(--color-foam);
 }
 
 /* Пока открыто модальное окно, прогулка обязана стоять на месте.
@@ -78,163 +78,163 @@ body {
    html, и клавиатурный PageDown всё равно проматывал кадр под окном: колесо
    мыши Radix перехватывает обработчиком, а клавиши — нет. */
 html:has(body[data-scroll-locked]) {
-    overflow: hidden;
+  overflow: hidden;
 }
 
 #root {
-    width: 100%;
+  width: 100%;
 }
 
 .sr-only {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    padding: 0;
-    margin: -1px;
-    overflow: hidden;
-    clip-path: inset(50%);
-    white-space: nowrap;
-    border: 0;
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
 }
 
 /* --- Scroll scrubber --- */
 
 .scrubber {
-    position: relative;
-    /* Overridden inline with svh; this is the fallback for older browsers. */
-    height: 500vh;
+  position: relative;
+  /* Overridden inline with svh; this is the fallback for older browsers. */
+  height: 500vh;
 }
 
 .scrubber__stage {
-    position: sticky;
-    top: 0;
-    height: 100vh;
-    overflow: hidden;
-    /* Low-quality placeholder of the first frame, visible until the canvas
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow: hidden;
+  /* Low-quality placeholder of the first frame, visible until the canvas
      paints. The canvas covers it completely once it does. */
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
 @supports (height: 100svh) {
-    .scrubber__stage {
-        height: 100svh;
-    }
+  .scrubber__stage {
+    height: 100svh;
+  }
 }
 
 .scrubber__canvas {
-    position: relative;
-    display: block;
-    width: 100%;
-    height: 100%;
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 100%;
 }
 
 .scrubber__spinner {
-    position: absolute;
-    left: 50%;
-    bottom: 2.5rem;
-    width: 28px;
-    height: 28px;
-    margin-left: -14px;
-    border: 2px solid rgba(255, 255, 255, 0.35);
-    border-top-color: #fff;
-    border-radius: 50%;
-    animation: scrubber-spin 0.8s linear infinite;
+  position: absolute;
+  left: 50%;
+  bottom: 2.5rem;
+  width: 28px;
+  height: 28px;
+  margin-left: -14px;
+  border: 2px solid rgba(255, 255, 255, 0.35);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: scrubber-spin 0.8s linear infinite;
 }
 
 @keyframes scrubber-spin {
-    to {
-        transform: rotate(360deg);
-    }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 .scrubber__hint {
-    position: absolute;
-    left: 50%;
-    bottom: 2rem;
-    transform: translateX(-50%);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0.25rem;
-    font-size: 0.8rem;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: rgba(255, 255, 255, 0.85);
-    text-shadow: 0 1px 6px rgba(0, 0, 0, 0.6);
-    animation: scrubber-float 2s ease-in-out infinite;
-    transition: opacity 0.4s ease;
-    pointer-events: none;
+  position: absolute;
+  left: 50%;
+  bottom: 2rem;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: 0.8rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.85);
+  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.6);
+  animation: scrubber-float 2s ease-in-out infinite;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
 }
 
 .scrubber__hint[data-hidden='true'] {
-    opacity: 0;
+  opacity: 0;
 }
 
 @keyframes scrubber-float {
-    0%,
-    100% {
-        transform: translate(-50%, 0);
-    }
-    50% {
-        transform: translate(-50%, 6px);
-    }
+  0%,
+  100% {
+    transform: translate(-50%, 0);
+  }
+  50% {
+    transform: translate(-50%, 6px);
+  }
 }
 
 /* --- Reduced-motion fallback --- */
 
 .gallery {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 
 .gallery__shot {
-    display: block;
-    width: 100%;
-    height: auto;
+  display: block;
+  width: 100%;
+  height: auto;
 }
 
 @media (prefers-reduced-motion: reduce) {
-    .scrubber__spinner,
-    .scrubber__hint {
-        animation: none;
-    }
+  .scrubber__spinner,
+  .scrubber__hint {
+    animation: none;
+  }
 }
 
 @theme inline {
-    /* Jost — весь интерфейс. Cormorant Garamond — только цифры и крупные
+  /* Jost — весь интерфейс. Cormorant Garamond — только цифры и крупные
      акценты: площади, цены, номера зон, инициалы в аватаре. */
-    --font-sans: 'Jost', 'Avenir Next', system-ui, sans-serif;
-    --font-heading: var(--font-sans);
-    --font-display: 'Cormorant Garamond', Georgia, serif;
-    /* Переменные sidebar и chart из пресета убраны: таких компонентов в проекте
+  --font-sans: 'Jost', 'Avenir Next', system-ui, sans-serif;
+  --font-heading: var(--font-sans);
+  --font-display: 'Cormorant Garamond', Georgia, serif;
+  /* Переменные sidebar и chart из пресета убраны: таких компонентов в проекте
      нет, а без определений в :root они всё равно резолвились бы в пустоту. */
-    --color-ring: var(--ring);
-    --color-input: var(--input);
-    --color-border: var(--border);
-    --color-destructive: var(--destructive);
-    --color-accent-foreground: var(--accent-foreground);
-    --color-accent: var(--accent);
-    --color-muted-foreground: var(--muted-foreground);
-    --color-muted: var(--muted);
-    --color-secondary-foreground: var(--secondary-foreground);
-    --color-secondary: var(--secondary);
-    --color-primary-foreground: var(--primary-foreground);
-    --color-primary: var(--primary);
-    --color-popover-foreground: var(--popover-foreground);
-    --color-popover: var(--popover);
-    --color-card-foreground: var(--card-foreground);
-    --color-card: var(--card);
-    --color-foreground: var(--foreground);
-    --color-background: var(--background);
-    --radius-sm: calc(var(--radius) * 0.6);
-    --radius-md: calc(var(--radius) * 0.8);
-    --radius-lg: var(--radius);
-    --radius-xl: calc(var(--radius) * 1.4);
-    --radius-2xl: calc(var(--radius) * 1.8);
-    --radius-3xl: calc(var(--radius) * 2.2);
-    --radius-4xl: calc(var(--radius) * 2.6);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --color-foreground: var(--foreground);
+  --color-background: var(--background);
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
 }
 
 /* Тема всегда тёмная — светлого варианта в стиле нет, поэтому фирменные
@@ -242,43 +242,43 @@ html:has(body[data-scroll-locked]) {
    синоним на случай, если какой-нибудь shadcn-компонент его затребует. */
 :root,
 .dark {
-    --background: var(--color-ink);
-    --foreground: var(--color-foam);
+  --background: var(--color-ink);
+  --foreground: var(--color-foam);
 
-    /* Карточки — стеклянные, поэтому подложка полупрозрачная, а не сплошная.
+  /* Карточки — стеклянные, поэтому подложка полупрозрачная, а не сплошная.
      Непрозрачная тёмная панель ломает стиль. */
-    --card: rgb(255 255 255 / 0.08);
-    --card-foreground: var(--color-foam);
-    --popover: rgb(10 10 11 / 0.72);
-    --popover-foreground: var(--color-foam);
+  --card: rgb(255 255 255 / 0.08);
+  --card-foreground: var(--color-foam);
+  --popover: rgb(10 10 11 / 0.72);
+  --popover-foreground: var(--color-foam);
 
-    --primary: var(--color-champagne);
-    --primary-foreground: var(--color-ink);
-    --secondary: var(--color-surface);
-    --secondary-foreground: var(--color-foam);
+  --primary: var(--color-champagne);
+  --primary-foreground: var(--color-ink);
+  --secondary: var(--color-surface);
+  --secondary-foreground: var(--color-foam);
 
-    --muted: var(--color-surface);
-    --muted-foreground: var(--color-mist);
-    --accent: var(--color-lagoon);
-    --accent-foreground: var(--color-ink);
+  --muted: var(--color-surface);
+  --muted-foreground: var(--color-mist);
+  --accent: var(--color-lagoon);
+  --accent-foreground: var(--color-ink);
 
-    --destructive: oklch(0.704 0.191 22.216);
+  --destructive: oklch(0.704 0.191 22.216);
 
-    --border: rgb(255 255 255 / 0.18);
-    --input: rgb(255 255 255 / 0.18);
-    --ring: var(--color-champagne);
+  --border: rgb(255 255 255 / 0.18);
+  --input: rgb(255 255 255 / 0.18);
+  --ring: var(--color-champagne);
 
-    --radius: 14px;
+  --radius: 14px;
 }
 
 @layer base {
-    * {
-        @apply border-border outline-ring/50;
-    }
-    body {
-        @apply bg-background text-foreground;
-    }
-    html {
-        @apply font-sans;
-    }
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+  html {
+    @apply font-sans;
+  }
 }
