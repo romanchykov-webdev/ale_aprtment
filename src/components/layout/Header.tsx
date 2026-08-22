@@ -1,7 +1,10 @@
+import { ViewingRequestDialog } from '@/components/forms/ViewingRequestDialog';
 import { BrandMark } from '@/components/layout/BrandMark';
 import { type Agent, type NavItem, type Property, type UiCopy } from '@/lib/mockDb';
+import { Menu } from 'lucide-react';
 import { motion, useMotionValueEvent, useScroll, useTransform } from 'motion/react';
 import { useRef, useState } from 'react';
+import { MobileMenu } from './MobileMenu';
 
 /**
  * Шапка, уезжающая вверх при прокрутке вниз и возвращающаяся при прокрутке
@@ -27,15 +30,17 @@ const ALWAYS_VISIBLE_ABOVE = 100;
 const BACKDROP_RAMP = [0, 80];
 
 interface HeaderProps {
-  agent?: Agent;
+  agent: Agent;
   property: Property;
   nav: readonly NavItem[];
   ui: UiCopy;
 }
 
-export function Header({ nav, ui }: HeaderProps) {
+export function Header({ agent, nav, ui }: HeaderProps) {
   const { scrollY } = useScroll();
   const [hidden, setHidden] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isBookingOpen, setIsBookingOpen] = useState(false);
   const lastY = useRef(0);
 
   // Фон появляется без единого ререндера — чистая интерполяция MotionValue.
@@ -70,63 +75,99 @@ export function Header({ nav, ui }: HeaderProps) {
   });
 
   // плавный скролл к якорю
-  const handleSmoothScroll = (e: React.MouseEvent<HTMLAnchorElement>, targetId: string) => {
-    // 1. Убиваем стандартное поведение браузера (отменяем мгновенный прыжок)
+  const handleSmoothScroll = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
     e.preventDefault();
-
-    // 2. Ищем в DOM-дереве невидимый спан-якорь, который генерирует наш ScrollScrubber
+    const targetId = href.replace('#', ''); // Отрезаем решетку, получаем 'section-living'
     const element = document.getElementById(targetId);
 
     if (element) {
-      // 3. Заставляем браузер плавно прокрутить страницу до этого спана
-      element.scrollIntoView({ behavior: 'smooth' });
+      element.scrollIntoView({ behavior: 'smooth' }); // На десктопе оставляем плавный скролл
     }
   };
 
   return (
-    <motion.header
-      /* Затемнение сверху нужно всегда: на первом кадре под шапкой светлое
+    <>
+      <motion.header
+        /* Затемнение сверху нужно всегда: на первом кадре под шапкой светлое
          небо, и без него белый текст по нему не читается. Стеклянный фон
          ниже проявляется поверх него по мере прокрутки. */
-      className="fixed inset-x-0 top-0 z-50 border-b bg-linear-to-b from-ink/75 via-ink/35 to-transparent"
-      style={{
-        backgroundColor,
-        backdropFilter,
-        WebkitBackdropFilter: backdropFilter,
-        borderColor,
-      }}
-      initial={false}
-      animate={{ y: hidden ? '-100%' : '0%' }}
-      transition={{ duration: 0.35, ease: [0.22, 0.61, 0.36, 1] }}
-    >
-      <div className="mx-auto flex max-w-352 items-center gap-6 px-[clamp(1rem,4vw,3rem)] py-4">
-        <a
-          href="#tour"
-          onClick={e => handleSmoothScroll(e, 'tour')}
-          className="flex items-center gap-3 text-foam transition-colors hover:text-champagne"
-        >
-          <BrandMark className="size-6 shrink-0" />
-          <span className="text-[11px] font-normal tracking-[0.28em] whitespace-nowrap uppercase">
-            {ui.brandName}
-          </span>
-        </a>
+        className="fixed inset-x-0 top-0 z-50 border-b bg-linear-to-b from-ink/75 via-ink/35 to-transparent "
+        style={{
+          backgroundColor,
+          backdropFilter,
+          WebkitBackdropFilter: backdropFilter,
+          borderColor,
+        }}
+        initial={false}
+        animate={{ y: hidden ? '-100%' : '0%' }}
+        transition={{ duration: 0.35, ease: [0.22, 0.61, 0.36, 1] }}
+      >
+        <div className="mx-auto flex max-w-352 items-center gap-6 px-[clamp(1rem,4vw,3rem)] py-4 ">
+          <a
+            href="#tour"
+            onClick={e => handleSmoothScroll(e, '#tour')}
+            className="flex items-center gap-3 text-foam transition-colors hover:text-champagne"
+          >
+            <BrandMark className="size-6 shrink-0" />
+            <span className="text-[11px] font-normal tracking-[0.28em] whitespace-nowrap uppercase">
+              {ui.brandName}
+            </span>
+          </a>
 
-        <nav aria-label={ui.navLabel} className="ml-auto hidden lg:block">
-          <ul className="flex items-center gap-8">
-            {nav.map(item => (
-              <li key={item.id}>
-                <a
-                  href={item.href}
-                  onClick={e => handleSmoothScroll(e, item.id)}
-                  className="text-[10px] font-normal tracking-[0.28em] text-mist uppercase transition-colors hover:text-champagne"
-                >
-                  {item.label}
-                </a>
-              </li>
-            ))}
-          </ul>
-        </nav>
-      </div>
-    </motion.header>
+          <div className="  flex flex-1 items-center justify-end">
+            <nav aria-label={ui.navLabel} className="ml-auto hidden lg:block ">
+              <ul className="flex items-center gap-8">
+                {nav.map(item => (
+                  <li key={item.id}>
+                    <a
+                      href={item.href}
+                      onClick={e => handleSmoothScroll(e, item.href)}
+                      className="text-[10px] font-normal tracking-[0.28em] text-mist uppercase transition-colors hover:text-champagne"
+                    >
+                      {item.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </nav>
+
+            {/* Кнопка-бургер (показываем до lg, на десктопе скрываем) */}
+            <div>
+              <button
+                onClick={() => setIsMobileMenuOpen(true)}
+                className="text-foam transition-colors hover:text-champagne lg:hidden flex items-center justify-center p-1"
+                aria-label="Открыть мобильное меню"
+              >
+                <Menu className="size-6" strokeWidth={1.5} />
+              </button>
+            </div>
+          </div>
+        </div>
+      </motion.header>
+
+      {/* Мобильное меню */}
+      <MobileMenu
+        isOpen={isMobileMenuOpen}
+        onClose={() => setIsMobileMenuOpen(false)}
+        nav={nav}
+        agent={agent}
+        ui={ui}
+        onBookingClick={() => {
+          setIsMobileMenuOpen(false); // 1. Сразу закрываем меню
+          // 2. Ждем 150мс, чтобы шторка меню начала уезжать,
+          // и только потом открываем диалог, чтобы избежать
+          // конфликтов блокировки скролла от двух компонентов сразу.
+          setTimeout(() => setIsBookingOpen(true), 300);
+        }}
+      />
+
+      {/* Он слушает стейт из шапки и прячет свою встроенную кнопку */}
+      <ViewingRequestDialog
+        ui={ui}
+        open={isBookingOpen}
+        onOpenChange={setIsBookingOpen}
+        hideTrigger
+      />
+    </>
   );
 }
