@@ -123,11 +123,27 @@ function Listing() {
           </ScrollScrubber>
         </FrameProgressProvider>
       </main>
-      <RoomPresentation room={rooms[0]} /> {/* ФАСАД */}
-      <RoomPresentation room={rooms[1]} /> {/* КУХНЯ-ГОСТИНАЯ */}
-      <RoomPresentation room={rooms[2]} /> {/* СПАЛЬНЯ С ГАРДЕРОБОМ */}
-      <RoomPresentation room={rooms[3]} /> {/* Ванная */}
-      <RoomPresentation room={rooms[4]} /> {/* Балкон */}
+      {/*section с уникальными ID */}
+      {/* ФАСАД */}
+      <section id="section-exterior">
+        <RoomPresentation room={rooms[0]} />
+      </section>
+      {/* КУХНЯ-ГОСТИНАЯ */}
+      <section id="section-living">
+        <RoomPresentation room={rooms[1]} />
+      </section>
+      {/* СПАЛЬНЯ С ГАРДЕРОБОМ */}
+      <section id="section-bedroom">
+        <RoomPresentation room={rooms[2]} />
+      </section>
+      {/* Ванная */}
+      <section id="section-bathroom">
+        <RoomPresentation room={rooms[3]} />
+      </section>
+      {/* Балкон */}
+      <section id="section-terassa">
+        <RoomPresentation room={rooms[4]} />
+      </section>
       {/* footer */}
       <Footer agent={agent} property={property} />
     </>

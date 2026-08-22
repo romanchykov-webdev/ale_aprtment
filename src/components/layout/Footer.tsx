@@ -1,7 +1,7 @@
 import { ContactForm } from '@/components/forms/ContactForm';
 import type { Agent, Property } from '@/lib/mockDb';
 import { cn } from '@/lib/utils';
-import { Home, Mail, MapPin, Phone } from 'lucide-react';
+import { Home, Mail, MapPin } from 'lucide-react';
 
 interface FooterProps {
   agent: Agent;
@@ -13,19 +13,10 @@ export function Footer({ agent, property, className }: FooterProps) {
   return (
     <footer
       className={cn(
-        // Контейнер футера: тёмный фон, относительное позиционирование для водяного знака
         'relative flex w-full flex-col overflow-hidden bg-ink px-[clamp(1.5rem,6vw,6rem)] pt-24 pb-12',
         className,
       )}
     >
-      {/* Водяной знак на фоне (z-0) */}
-      {/* <div
-                className="pointer-events-none absolute -bottom-10 right-0 z-0 select-none text-[20vw] font-bold leading-none tracking-tighter text-white/[0.02]"
-                aria-hidden="true"
-            >
-                contact
-            </div> */}
-
       {/* Основной контент (z-10, чтобы быть поверх водяного знака) */}
       <div className="relative z-10 flex flex-col justify-between gap-16 lg:flex-row lg:gap-24">
         {/* Левая колонка: Информация */}
@@ -43,13 +34,13 @@ export function Footer({ agent, property, className }: FooterProps) {
           </p>
 
           <address className="mb-12 flex flex-col gap-6 not-italic">
-            <a
+            {/* <a
               href={`tel:${agent.phone.replace(/\s/g, '')}`}
               className="flex items-center gap-4 text-mist transition-colors hover:text-champagne"
             >
               <Phone className="h-5 w-5 text-lagoon" strokeWidth={1.5} />
               <span className="text-[17px] tracking-wider">[{agent.phone}]</span>
-            </a>
+            </a> */}
             <a
               href={`mailto:${agent.email}`}
               className="flex items-center gap-4 text-mist transition-colors hover:text-champagne"

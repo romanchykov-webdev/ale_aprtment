@@ -531,9 +531,11 @@ const ROOMS: readonly Room[] = [
 // ];
 const NAV: readonly NavItem[] = [
   { id: 'tour', label: 'Прогулка', href: '#tour', at: 0 },
-  { id: 'exterior', label: 'Фасад', href: '#exterior', at: 0.14 },
-  { id: 'living', label: 'Гостиная', href: '#living', at: 0.35 },
-  { id: 'bedroom', label: 'Спальня', href: '#bedroom', at: 0.61 },
+  { id: 'exterior', label: 'Фасад', href: '#section-exterior', at: 0.14 },
+  { id: 'living', label: 'Гостиная', href: '#section-living', at: 0.35 },
+  { id: 'bedroom', label: 'Спальня', href: '#section-bedroom', at: 0.61 },
+  { id: 'bathroom', label: 'Ванная', href: '#section-bathroom', at: 0.61 },
+  { id: 'terassa', label: 'Терраса', href: '#section-terassa', at: 0.61 },
 ];
 
 const UI: UiCopy = {

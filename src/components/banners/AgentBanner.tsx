@@ -74,6 +74,7 @@ export function AgentBanner({ agent, ui, className }: AgentBannerProps) {
           >
             <a href={phoneHref(agent)}>{ui.callLabel}</a>
           </Button> */}
+
           <ViewingRequestDialog ui={ui} />
         </div>
       </CardContent>
