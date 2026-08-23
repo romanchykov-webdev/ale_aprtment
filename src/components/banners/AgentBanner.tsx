@@ -67,14 +67,6 @@ export function AgentBanner({ agent, ui, className }: AgentBannerProps) {
         </p>
 
         <div className="flex flex-wrap items-center justify-center gap-3">
-          {/* <Button
-            asChild
-            variant="outline"
-            className="h-auto rounded-full border-white/40 bg-transparent px-7.5 py-3.75 text-[11px] font-normal tracking-[0.22em] text-foam uppercase hover:border-champagne hover:bg-transparent hover:text-champagne active:bg-champagne active:text-ink"
-          >
-            <a href={phoneHref(agent)}>{ui.callLabel}</a>
-          </Button> */}
-
           <ViewingRequestDialog ui={ui} />
         </div>
       </CardContent>

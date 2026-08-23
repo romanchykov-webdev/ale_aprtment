@@ -1,8 +1,5 @@
 import { AgentBanner } from '@/components/banners/AgentBanner';
-import { RoomBanner } from '@/components/banners/RoomBanner';
-import { frameUrl } from '@/lib/frameLoader';
 import type { Agent, Room, UiCopy } from '@/lib/mockDb';
-import { resolveTier } from '@/lib/tier';
 
 /**
  * Версия для посетителей, попросивших уменьшить количество анимации: та же
@@ -19,28 +16,22 @@ interface StaticGalleryProps {
   ui: UiCopy;
 }
 
-export function StaticGallery({ agent, rooms, ui }: StaticGalleryProps) {
-  const tier = resolveTier();
-
+export function StaticGallery({ agent, ui }: StaticGalleryProps) {
   return (
     <div className="flex flex-col">
-      <section className="flex flex-col items-center gap-8 px-[clamp(1rem,5vw,3rem)] py-16">
-        <AgentBanner agent={agent} ui={ui} />
-      </section>
-
-      {rooms.map((room, index) => (
-        <section key={room.id} className="flex flex-col">
-          <img
-            className="block h-auto w-full"
-            src={frameUrl(room.stillFrame, tier)}
-            alt={room.photoAlt}
-            loading={index === 0 ? 'eager' : 'lazy'}
-          />
-          <div className="flex justify-center px-[clamp(1rem,5vw,3rem)] py-12">
-            <RoomBanner room={room} />
+      <section id="tour" className="flex  items-center  relative ">
+        {/*  */}
+        <div className="absolute w-full h-full  flex items-center justify-center ">
+          <div className=" scale-30  ">
+            <AgentBanner agent={agent} ui={ui} />
           </div>
-        </section>
-      ))}
+        </div>
+        <img
+          className="block w-full h-auto object-cover object-center"
+          src="/01out/1.jpg"
+          alt="outdoor view of the property"
+        />
+      </section>
     </div>
   );
 }
