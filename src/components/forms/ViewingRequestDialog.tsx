@@ -32,9 +32,9 @@ interface ViewingRequestDialogProps {
 export function ViewingRequestDialog({
   ui,
   className,
-  open, // <-- Достаем новые пропсы
+  open,
   onOpenChange,
-  hideTrigger = false, // По умолчанию кнопка показывается
+  hideTrigger = false,
 }: ViewingRequestDialogProps) {
   return (
     // Передаем управление стейтом в Radix
@@ -46,7 +46,9 @@ export function ViewingRequestDialog({
             type="button"
             variant="ghost"
             className={cn(
-              'h-auto rounded-full border-2 border-white/40 bg-transparent px-7.5 py-3.75',
+              'h-auto rounded-full border-2 border-white/40 bg-black/20',
+              // 'bg-transparent',
+              ' px-7.5 py-3.75',
               'text-[11px] font-normal tracking-[0.22em] text-champagne/70 uppercase',
               'hover:border-champagne hover:bg-transparent hover:text-champagne',
               'active:bg-champagne active:text-ink',

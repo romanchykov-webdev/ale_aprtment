@@ -4,13 +4,13 @@ import { Header } from '@/components/layout/Header';
 import { FrameObserver } from '@/components/scroll/FrameObserver';
 import { FrameProgressProvider } from '@/components/scroll/FrameProgressProvider';
 import { ScrollScrubber } from '@/components/scroll/ScrollScrubber';
-import { StaticGallery } from '@/components/StaticGallery';
 import { listingPromise } from '@/lib/listingResource';
 import { useReducedMotion } from 'motion/react';
 import { Suspense, use } from 'react';
 import { BottomBannerHorizontal } from './components/banners/BottomBannerHorizontal';
 import { Footer } from './components/layout/Footer';
 import { RoomPresentation } from './components/layout/RoomPresentation';
+import { StaticGallery } from './components/StaticGallery';
 
 /**
  * Сборка страницы.
@@ -58,6 +58,29 @@ function Listing() {
           <h1 className="sr-only">{ui.srHeading}</h1>
           <StaticGallery agent={agent} rooms={rooms} ui={ui} />
         </main>
+        {/*section с уникальными ID */}
+        {/* ФАСАД */}
+        <section id="section-exterior">
+          <RoomPresentation room={rooms[0]} />
+        </section>
+        {/* КУХНЯ-ГОСТИНАЯ */}
+        <section id="section-living">
+          <RoomPresentation room={rooms[1]} />
+        </section>
+        {/* СПАЛЬНЯ С ГАРДЕРОБОМ */}
+        <section id="section-bedroom">
+          <RoomPresentation room={rooms[2]} />
+        </section>
+        {/* Ванная */}
+        <section id="section-bathroom">
+          <RoomPresentation room={rooms[3]} />
+        </section>
+        {/* Балкон */}
+        <section id="section-terassa">
+          <RoomPresentation room={rooms[4]} />
+        </section>
+        {/* footer */}
+        <Footer agent={agent} property={property} />
       </>
     );
   }
